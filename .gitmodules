@@ -1,0 +1,3 @@
+[submodule "phpecc"]
+	path = phpecc
+	url = https://github.com/mdanter/phpecc.git
