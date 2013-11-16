@@ -181,7 +181,7 @@ function gmp2bin($v) {
 
 // Setup-stuff cribbed from index.php in the ECC repo
 function __autoload($f) {
-	$base = "phpecc/";
+  $base = dirname(__FILE__)."/phpecc/";
 	$interfaceFile = $base . "classes/interface/" . $f . "Interface.php";
 
 	if (file_exists($interfaceFile)) {
