@@ -8,17 +8,15 @@ if (extension_loaded('gmp')) {
 	die('GMP extension required.'); // It may be available in a package called "php5-gmp" or similar for your system
 }
 
-// curve definition
-// http://www.secg.org/download/aid-784/sec2-v2.pdf
-$secp256k1 = new CurveFp(
-	'0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F', '0', '7');
-$secp256k1_G = new Point($secp256k1,
-	'0x79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798',
-	'0x483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8',
-	'0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141');
-
 function isMessageSignatureValid($address, $signature, $message) {
-	global $secp256k1_G;
+  // curve definition
+  // http://www.secg.org/download/aid-784/sec2-v2.pdf
+  $secp256k1 = new CurveFp(
+    '0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F', '0', '7');
+  $secp256k1_G = new Point($secp256k1,
+    '0x79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798',
+    '0x483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8',
+    '0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141');
 
 	// extract parameters
 	$address = base58check_decode($address);
@@ -198,4 +196,3 @@ function __autoload($f) {
 		require_once $utilFile;
 	}
 }
-
