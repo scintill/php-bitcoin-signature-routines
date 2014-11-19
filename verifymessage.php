@@ -8,6 +8,26 @@ if (extension_loaded('gmp')) {
 	die('GMP extension required.'); // It may be available in a package called "php5-gmp" or similar for your system
 }
 
+// Setup-stuff cribbed from index.php in the ECC repo
+spl_autoload_register(function ($f) {
+  $base = dirname(__FILE__)."/phpecc/";
+	$interfaceFile = $base . "classes/interface/" . $f . "Interface.php";
+
+	if (file_exists($interfaceFile)) {
+		require_once $interfaceFile;
+	}
+
+	$classFile = $base . "classes/" . $f . ".php";
+	if (file_exists($classFile)) {
+		require_once $classFile;
+	}
+
+	$utilFile = $base . "classes/util/" . $f . ".php";
+	if (file_exists($utilFile)) {
+		require_once $utilFile;
+	}
+});
+
 function isMessageSignatureValid($address, $signature, $message) {
   // curve definition
   // http://www.secg.org/download/aid-784/sec2-v2.pdf
@@ -175,24 +195,4 @@ function gmp2bin($v) {
 	}
 
 	return $binStr;
-}
-
-// Setup-stuff cribbed from index.php in the ECC repo
-function __autoload($f) {
-  $base = dirname(__FILE__)."/phpecc/";
-	$interfaceFile = $base . "classes/interface/" . $f . "Interface.php";
-
-	if (file_exists($interfaceFile)) {
-		require_once $interfaceFile;
-	}
-
-	$classFile = $base . "classes/" . $f . ".php";
-	if (file_exists($classFile)) {
-		require_once $classFile;
-	}
-
-	$utilFile = $base . "classes/util/" . $f . ".php";
-	if (file_exists($utilFile)) {
-		require_once $utilFile;
-	}
 }
